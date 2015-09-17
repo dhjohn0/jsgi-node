@@ -121,7 +121,7 @@ Input.prototype.join = function(token){
   }).then(function(){
     return parts.join(token || ""); // yeah, I know Array.prototype.join defaults to ",", but clearly "" is more useful here
   });
-}
+};
 
 function Response( response, stream ) {
   var started = false, canceller, cancel;
@@ -131,11 +131,11 @@ function Response( response, stream ) {
     var forEachResult;
     if ( typeof data.then === "function" ) {
       if(!canceller){
-        stream.removeAllListeners("close");
+        //stream.removeAllListeners("close");
         canceller = function(){
           stream.removeListener("close", canceller);
           cancel && cancel();
-        }
+        };
         stream.addListener("close", canceller);
       }
       cancel = data.cancel;
@@ -251,5 +251,5 @@ function start( app, options ) {
 
   sys.puts( "Server running on port " + port );
   return http; 
-};
+}
 module.exports = start;
